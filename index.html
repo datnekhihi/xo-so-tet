@@ -15,6 +15,13 @@
             height: 100vh; width: 100vw; overflow: hidden; position: relative;
         }
 
+        .fullscreen-btn {
+            position: fixed; bottom: 20px; right: 20px; padding: 10px 15px;
+            background: rgba(255, 215, 0, 0.2); border: 1px solid var(--tet-gold);
+            color: var(--tet-gold); border-radius: 10px; cursor: pointer; z-index: 1000;
+            font-weight: bold; font-size: 0.9rem;
+        }
+
         .lien-dua {
             position: absolute; top: 55%; transform: translateY(-50%);
             width: 100px; height: 72vh;
@@ -70,6 +77,8 @@
 </head>
 <body>
 
+    <button class="fullscreen-btn" onclick="toggleFS()">PHÓNG TO </button>
+
     <div class="lien-dua lien-left">
         <div class="chu-thu-phap">Chuyên</div><div class="chu-thu-phap">Khoa</div><div class="chu-thu-phap">Học</div>
     </div>
@@ -97,14 +106,20 @@
     </div>
 
     <script>
-        // CẬP NHẬT: Âm thanh xổ số Remix dồn dập
-        const sfxSpin = new Audio('https://files.catbox.moe/97p1at.mp3'); // Nhạc xổ số Remix (Đúng bài bạn gửi)
+        // Link nhạc dự phòng cực bền
+        const sfxSpin = new Audio('https://raw.githubusercontent.com/Tiendatmagician/Upload-file-free/main/nhac-xo-so-kien-thiet.mp3');
         const sfxStop = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); 
         const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp3'); 
 
         function toggleFS() {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-            else document.exitFullscreen();
+            // MẸO: Khi bấm nút này, ta sẽ bí mật "play" rồi "pause" nhạc ngay để trình duyệt cấp quyền
+            sfxSpin.play().then(() => sfxSpin.pause());
+            
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(e => console.log(e));
+            } else {
+                document.exitFullscreen();
+            }
         }
 
         const d1 = document.getElementById('d1'), d2 = document.getElementById('d2'), d3 = document.getElementById('d3');
@@ -118,10 +133,19 @@
             isSpinning = true; 
             btn.disabled = true;
 
-            // PHẦN 1: BẮT ĐẦU QUAY - Nhạc Remix nổi lên
+            // Xử lý nhạc quay số
             sfxSpin.currentTime = 0; 
+            sfxSpin.loop = true;
             sfxSpin.volume = 1;
-            sfxSpin.play();
+            
+            const p = sfxSpin.play();
+            if (p !== undefined) {
+                p.catch(() => { 
+                    console.log("Cần bấm PHÓNG TO trước để kích hoạt");
+                    // Cố gắng phát lại lần nữa
+                    setTimeout(() => sfxSpin.play(), 50);
+                });
+            }
 
             [d1, d2, d3].forEach(d => { 
                 d.classList.remove('boom-effect'); 
@@ -133,11 +157,10 @@
             const i2 = setInterval(() => d2.innerText = Math.floor(Math.random()*10), 50);
             const i3 = setInterval(() => d3.innerText = Math.floor(Math.random()*10), 50);
 
-            // PHẦN 2: DỪNG TỪNG SỐ
             setTimeout(() => { 
                 clearInterval(i1); d1.innerText = res[0]; d1.classList.remove('spinning'); 
                 sfxStop.cloneNode(true).play(); 
-            }, 2000); // Kéo dài thời gian hơn chút để nghe nhạc
+            }, 2000);
 
             setTimeout(() => { 
                 clearInterval(i2); d2.innerText = res[1]; d2.classList.remove('spinning'); 
@@ -148,22 +171,19 @@
                 clearInterval(i3); d3.innerText = res[2]; d3.classList.remove('spinning'); 
                 sfxStop.cloneNode(true).play(); 
 
-                // PHẦN 3: CÔNG BỐ KẾT QUẢ - Dừng nhạc Remix, bật nhạc thắng
                 sfxSpin.pause(); 
                 sfxWin.play(); 
 
                 setTimeout(() => {
                     [d1, d2, d3].forEach(d => d.classList.add('boom-effect'));
                     confetti({ particleCount: 400, spread: 120, origin: { y: 0.6 } });
-                    
                     const item = document.createElement('div');
                     item.className = 'history-item'; item.innerText = res;
                     historyList.prepend(item);
-                    
                     isSpinning = false; 
                     btn.disabled = false;
                 }, 200);
-            }, 6000); // Tổng cộng 6 giây quay dồn dập theo nhạc
+            }, 6000); 
         }
 
         setInterval(() => {
