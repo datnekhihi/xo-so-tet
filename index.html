@@ -19,48 +19,57 @@
             position: fixed; bottom: 20px; right: 20px; padding: 10px 15px;
             background: rgba(255, 215, 0, 0.2); border: 1px solid var(--tet-gold);
             color: var(--tet-gold); border-radius: 10px; cursor: pointer; z-index: 1000;
-            font-weight: bold; font-size: 0.9rem;
         }
 
+        /* LIỄN 2 BÊN */
         .lien-dua {
             position: absolute; top: 55%; transform: translateY(-50%);
-            width: 100px; height: 72vh;
+            width: 100px; height: 70vh;
             background: linear-gradient(180deg, #ff4d4d, #b30000);
-            border: 4px solid var(--tet-gold); border-radius: 10px 10px 50px 50px;
+            border: 4px solid var(--tet-gold); border-radius: 5px 5px 50px 50px;
             display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
             padding: 10px 0; z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
-        .lien-dua::after {
-            content: "░░░░░░░"; position: absolute; bottom: -40px; color: var(--tet-gold);
-            font-size: 2rem; line-height: 1; animation: sway 2.5s infinite ease-in-out; transform-origin: top;
+        .lien-dua::before {
+            content: ""; position: absolute; top: -10px; width: 120%; height: 12px;
+            background: #5d4037; border-radius: 5px; border: 1px solid #3e2723;
         }
-        @keyframes sway { 0%, 100% { transform: rotate(-6deg) translateX(-2px); } 50% { transform: rotate(6deg) translateX(2px); } }
+        .lien-dua::after {
+            content: ""; position: absolute; top: -55px; width: 80px; height: 45px;
+            border-left: 3px solid #b30000; border-top: 3px solid #b30000;
+            transform: rotate(45deg); z-index: -1;
+        }
+        .lien-dua-tassel {
+            position: absolute; bottom: -45px; color: var(--tet-gold); font-size: 2rem;
+            animation: sway 2.5s infinite ease-in-out; transform-origin: top;
+        }
+        @keyframes sway { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
 
-        .lien-left { left: 40px; } .lien-right { right: 40px; }
+        .lien-left { left: 45px; } .lien-right { right: 45px; }
         .chu-thu-phap { font-family: 'Dancing Script', cursive; font-size: 2.3rem; color: var(--tet-gold); text-align: center; }
         .so-lien { font-family: 'Oswald', sans-serif; font-size: 2.8rem; color: #fff; text-shadow: 0 0 15px var(--tet-gold); }
 
         .main-circle {
             width: 420px; height: 420px; border: 12px double var(--tet-gold); border-radius: 50%;
-            background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 100px rgba(255, 215, 0, 0.3); z-index: 10;
+            background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center;box-shadow: 0 0 100px rgba(255, 215, 0, 0.3); z-index: 10;
         }
         .digit {
             font-family: 'Oswald', sans-serif; font-size: 11rem; font-weight: 900;
             text-shadow: 0 0 20px var(--tet-gold); min-width: 105px; text-align: center;
-            display: inline-block; opacity: 0;} .digit.show { opacity: 1; transform: scale(1); transition: 0.3s; }
+        }
         .spinning { animation: shake 0.1s infinite; filter: blur(2px); color: #fff; }
         @keyframes shake { 0% { transform: translateY(-3px); } 100% { transform: translateY(3px); } }
 
         .boom-effect { animation: final-boom 0.6s ease-out; text-shadow: 0 0 50px #fff, 0 0 100px var(--tet-gold) !important; color: #fff !important; }
-        @keyframes final-boom { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+        @keyframes final-boom { 0% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
         .btn-quay {
             margin-top: 30px; padding: 15px 70px; font-size: 2.2rem; font-weight: bold;
             background: linear-gradient(180deg, #ffeb3b, #fbc02d); border: 5px solid #b71c1c;
             border-radius: 60px; color: #b71c1c; cursor: pointer; box-shadow: 0 10px 0 #7f0000; z-index: 10;
         }
-        .btn-quay:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; transform: translateY(5px); }
+        .btn-quay:active { transform: translateY(5px); box-shadow: 0 5px 0 #7f0000; }
+        .btn-quay:disabled { opacity: 0.6; cursor: not-allowed; }
 
         #history {
             margin-top: 25px; background: rgba(0,0,0,0.5); padding: 10px 40px; border-radius: 40px;
@@ -75,13 +84,15 @@
 </head>
 <body>
 
-    <button class="fullscreen-btn" onclick="toggleFS()">PHÓNG TO </button>
+    <button class="fullscreen-btn" onclick="toggleFS()">PHÓNG TO / BẬT LOA</button>
 
     <div class="lien-dua lien-left">
         <div class="chu-thu-phap">Chuyên</div><div class="chu-thu-phap">Khoa</div><div class="chu-thu-phap">Học</div>
+        <div class="lien-dua-tassel">░░░</div>
     </div>
     <div class="lien-dua lien-right">
         <div class="so-lien">11</div><div class="chu-thu-phap">Toán</div><div class="chu-thu-phap">Lý</div>
+        <div class="lien-dua-tassel">░░░</div>
     </div>
 
     <header style="text-align: center; z-index: 10;">
@@ -94,25 +105,24 @@
             <span class="digit" id="d2">0</span>
             <span class="digit" id="d3">0</span>
         </div>
-    </div>
-
-    <button class="btn-quay" id="btnMain" onclick="startSpin()">QUAY SỐ</button>
+    </div><button class="btn-quay" id="btnMain" onclick="startSpin()">QUAY SỐ</button>
 
     <div id="history">
         <div style="font-weight: bold;">DANH SÁCH SỐ ĐÃ TRÚNG</div>
         <div class="history-list" id="history-list"></div>
     </div>
 
-    <script>// Link nhạc dự phòng cực bền const sfxSpin = new Audio('https://github.com/datnekhihi/xo-so-tet/raw/refs/heads/main/X%E1%BB%95%20S%E1%BB%91.mp3');
+    <script>
+        // Cài đặt âm thanh
+        const sfxSpin = new Audio('https://github.com/datnekhihi/xo-so-tet/raw/refs/heads/main/X%E1%BB%95%20S%E1%BB%91.mp3');
         const sfxStop = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); 
         const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp3'); 
 
         function toggleFS() {
-            // MẸO: Khi bấm nút này, ta sẽ bí mật "play" rồi "pause" nhạc ngay để trình duyệt cấp quyền
-            sfxSpin.play().then(() => sfxSpin.pause());
-            
+            // Kích hoạt loa
+            sfxSpin.play().then(() => sfxSpin.pause()).catch(() => {});
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(e => console.log(e));
+                document.documentElement.requestFullscreen().catch(() => {});
             } else {
                 document.exitFullscreen();
             }
@@ -122,70 +132,68 @@
         const btn = document.getElementById('btnMain'), historyList = document.getElementById('history-list');
         let isSpinning = false;
 
-        window.onload = () => { [d1, d2, d3].forEach(d => d.classList.add('show')); };
-
         function startSpin() {
             if (isSpinning) return;
             isSpinning = true; 
             btn.disabled = true;
 
-            // Xử lý nhạc quay số
-            sfxSpin.currentTime = 0; 
-            sfxSpin.loop = true;
-            sfxSpin.volume = 1;
+            // Chạy âm thanh
+            sfxSpin.currentTime = 0; sfxSpin.loop = true;
+            sfxSpin.play().catch(() => { alert("Hãy bấm nút PHÓNG TO trước để nghe tiếng!"); });
+
+            // Hiệu ứng quay số
+            [d1, d2, d3].forEach(d => { d.classList.remove('boom-effect'); d.classList.add('spinning'); });
+
+            const targetNum = Math.floor(Math.random() * 450 + 1).toString().padStart(3, '0');
             
-            const p = sfxSpin.play();
-            if (p !== undefined) {
-                p.catch(() => { 
-                    console.log("Cần bấm PHÓNG TO trước để kích hoạt");
-                    // Cố gắng phát lại lần nữa
-                    setTimeout(() => sfxSpin.play(), 50);
-                });
-            }
+            // Hàm nhảy số
+            const run = (el) => setInterval(() => { el.innerText = Math.floor(Math.random()*10); }, 50);
+            const interval1 = run(d1);
+            const interval2 = run(d2);
+            const interval3 = run(d3);
 
-            [d1, d2, d3].forEach(d => { 
-                d.classList.remove('boom-effect'); 
-                d.classList.add('spinning'); 
-            });
+            // THỜI GIAN DỪNG: Mỗi ô quay 10 giây
+            // Ô 1 dừng sau 10s
+            setTimeout(() => {
+                clearInterval(interval1); d1.innerText = targetNum[0];
+                d1.classList.remove('spinning'); sfxStop.cloneNode(true).play();
+            }, 10000);
 
-            const res = Math.floor(Math.random() * 450 + 1).toString().padStart(3, '0');
-            const i1 = setInterval(() => d1.innerText = Math.floor(Math.random()*10), 50);
-            const i2 = setInterval(() => d2.innerText = Math.floor(Math.random()*10), 50);
-            const i3 = setInterval(() => d3.innerText = Math.floor(Math.random()*10), 50);
+            // Ô 2 dừng sau 20s
+            setTimeout(() => {
+                clearInterval(interval2); d2.innerText = targetNum[1];
+                d2.classList.remove('spinning'); sfxStop.cloneNode(true).play();
+            }, 20000);
 
-            setTimeout(() => { 
-                clearInterval(i1); d1.innerText = res[0]; d1.classList.remove('spinning'); 
-                sfxStop.cloneNode(true).play(); 
-            }, 2000);
+            // Ô 3 dừng sau 30s
+            setTimeout(() => {
+                clearInterval(interval3); d3.innerText = targetNum[2];
+                d3.classList.remove('spinning'); sfxStop.cloneNode(true).play();
+                
+                sfxSpin.pause(); sfxWin.play();
 
-            setTimeout(() => { 
-                clearInterval(i2); d2.innerText = res[1]; d2.classList.remove('spinning'); 
-                sfxStop.cloneNode(true).play(); 
-            }, 4000);
-
-            setTimeout(() => { 
-                clearInterval(i3); d3.innerText = res[2]; d3.classList.remove('spinning'); 
-                sfxStop.cloneNode(true).play(); 
-
-                sfxSpin.pause(); 
-                sfxWin.play(); 
-
-                setTimeout(() => {[d1, d2, d3].forEach(d => d.classList.add('boom-effect')); confetti({ particleCount: 400, spread: 120, origin: { y: 0.6 } });
+                // Nổ pháo hoa kết quả
+                setTimeout(() => {[d1, d2, d3].forEach(d => d.classList.add('boom-effect'));
+                    confetti({ particleCount: 400, spread: 130, origin: { y: 0.6 } });
+                    
                     const item = document.createElement('div');
-                    item.className = 'history-item'; item.innerText = res;
+                    item.className = 'history-item'; item.innerText = targetNum;
                     historyList.prepend(item);
-                    isSpinning = false; 
-                    btn.disabled = false;
-                }, 200);
-            }, 6000); 
+                    
+                    isSpinning = false; btn.disabled = false;
+                }, 100);
+            }, 30000);
         }
 
+        // Cánh hoa rơi
         setInterval(() => {
-            const p = document.createElement('div');
-            p.className = 'petal'; p.style.left = Math.random() * 100 + 'vw';
-            const s = Math.random() * 15 + 15 + 'px'; p.style.width = s; p.style.height = s;
+            const p = document.createElement('div'); p.className = 'petal';
+            p.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 15 + 15 + 'px';
+            p.style.width = size; p.style.height = size;
             p.style.animationDuration = Math.random() * 3 + 4 + 's';
-            document.body.appendChild(p); setTimeout(() => p.remove(), 7000);
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 7000);
         }, 300);
     </script>
 </body>
