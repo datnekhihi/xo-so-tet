@@ -114,7 +114,7 @@
 
     <script>
         // Cài đặt âm thanh
-        const sfxSpin = new Audio('https://github.com/datnekhihi/xo-so-tet/raw/refs/heads/main/X%E1%BB%95%20S%E1%BB%91.mp3');
+        const sfxSpin = new Audio('https://github.com/datnekhihi/xo-so-tet/raw/refs/heads/main/nhac-xo-so.mp3');
         const sfxStop = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); 
         const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp3'); 
 
@@ -163,7 +163,7 @@
             setTimeout(() => {
                 clearInterval(interval2); d2.innerText = targetNum[1];
                 d2.classList.remove('spinning'); sfxStop.cloneNode(true).play();
-            }, 6000);
+            }, 4000);
 
             // Ô 3 dừng sau 30s
             setTimeout(() => {
@@ -198,4 +198,5 @@
     </script>
 </body>
 </html>
+
 
