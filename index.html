@@ -118,7 +118,7 @@
 const sfxSpin = new Audio('https://github.com/datnekhihi/xo-so-tet/raw/refs/heads/main/nhac-xo-so.mp3');
 
 // 2. Tiếng dừng từng số (Tiếng Ting nhẹ nhàng)
-const sfxStop = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); 
+const sfxStop = new Audio(''); 
 
 // 3. Nhạc thắng cuộc (Tiếng chuông phép thuật trang trọng)
 const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp3');
@@ -167,7 +167,7 @@ const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp
             setTimeout(() => {
                 clearInterval(interval2); d2.innerText = targetNum[1];
                 d2.classList.remove('spinning'); sfxStop.cloneNode(true).play();
-            }, 3000);
+            }, 6000);
 
             // Ô 3 dừng sau 30s
             setTimeout(() => {
@@ -186,7 +186,7 @@ const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp
                     
                     isSpinning = false; btn.disabled = false;
                 }, 100);
-            }, 30000);
+            }, 10000);
         }
 
         // Cánh hoa rơi
@@ -202,7 +202,6 @@ const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp
     </script>
 </body>
 </html>
-
 
 
 
