@@ -114,10 +114,14 @@
 
     <script>
         // Cài đặt âm thanh
-        const sfxSpin = new Audio('https://github.com/datnekhihi/xo-so-tet/raw/refs/heads/main/nhac-xo-so.mp3');
-        const sfxStop = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); 
-        const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp3'); 
+       // 1. Nhạc quay số kiến thiết (Sạch 100%)
+const sfxSpin = new Audio('https://raw.githubusercontent.com/Tiendatmagician/Upload-file-free/main/nhac-xo-so-kien-thiet.mp3');
 
+// 2. Tiếng dừng từng số (Tiếng Ting nhẹ nhàng)
+const sfxStop = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); 
+
+// 3. Nhạc thắng cuộc (Tiếng chuông phép thuật trang trọng)
+const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp3');
         function toggleFS() {
             // Kích hoạt loa
             sfxSpin.play().then(() => sfxSpin.pause()).catch(() => {});
@@ -198,6 +202,7 @@
     </script>
 </body>
 </html>
+
 
 
 
