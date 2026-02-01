@@ -161,13 +161,13 @@ const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp
             setTimeout(() => {
                 clearInterval(interval1); d1.innerText = targetNum[0];
                 d1.classList.remove('spinning'); sfxStop.cloneNode(true).play();
-            }, 3000);
+            }, 1000);
 
             // Ô 2 dừng sau 20s
             setTimeout(() => {
                 clearInterval(interval2); d2.innerText = targetNum[1];
                 d2.classList.remove('spinning'); sfxStop.cloneNode(true).play();
-            }, 6000);
+            }, 2000);
 
             // Ô 3 dừng sau 30s
             setTimeout(() => {
@@ -186,7 +186,7 @@ const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp
                     
                     isSpinning = false; btn.disabled = false;
                 }, 100);
-            }, 10000);
+            }, 4000);
         }
 
         // Cánh hoa rơi
@@ -202,6 +202,7 @@ const sfxWin = new Audio('https://www.soundjay.com/misc/sounds/magic-chime-01.mp
     </script>
 </body>
 </html>
+
 
 
 
